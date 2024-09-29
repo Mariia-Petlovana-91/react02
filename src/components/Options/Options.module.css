@@ -17,8 +17,8 @@
 }
 
 .options__psitive{
+	margin-right: 20px;
 	color: rgb(48, 206, 48);
-	margin-bottom: 10px;
 	text-align: center;
 	font-size: 28px;
 }

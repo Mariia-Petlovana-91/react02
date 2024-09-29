@@ -4,7 +4,6 @@ import Description from '../Description/Description';
 import Feedback from '../Feedback/Feedback';
 import Options from '../Options/Options';
 import Notification from '../Notification/Notification';
-import { FiDatabase } from 'react-icons/fi';
 
 export default class App extends React.Component {
   state = {
@@ -51,8 +50,11 @@ updateFeedback = (feedbackType) => {
     const totalFeedback = good + neutral + bad;
     return (
     <Section>
-	    <Description />
-		    
+      <Description
+          total={totalFeedback}
+          good={good}
+      />
+  
       <Feedback
         handleGood={() => this.updateFeedback('good')}
         handleNeutral={() => this.updateFeedback('neutral')}
