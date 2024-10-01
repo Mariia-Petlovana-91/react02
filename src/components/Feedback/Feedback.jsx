@@ -1,17 +1,15 @@
 import css from '../Feedback/Feedback.module.css';
 
-export default function Feedback({handleGood, handleNeutral, handleBad}) {
+export default function Feedback({ good, neutral, bad, totalFeedback }) {
 	return (
-		<ul className={css.feedback__list}>
-			<li className={css.feedback__item}>
-				<button className={css.feedback__btn} onClick={handleGood} type='button'>Good</button>
-			</li>
-			<li className={css.feedback__item}>
-				<button className={css.feedback__btn} onClick={handleNeutral} type='button'>Neutral</button>
-			</li>
-			<li className={css.feedback__item}>
-				<button className={css.feedback__btn} onClick={handleBad} type='button'>Bad</button>
-			</li>
-		</ul>
+		<div className={css.feedback__container}>
+			<ul className={css.feedback__list}>
+		        <li className={css.feedback__item}>Good: {good}</li>
+		        <li className={css.feedback__item}>Neutral: {neutral}</li>
+			  <li className={css.feedback__item}>Bad: {bad}</li>
+			  <li className={(Math.round((good / totalFeedback) * 100)) >= 50? css.feedback__psitive : css.feedback__negative}>Positive: { Math.round((good / totalFeedback) * 100)}%</li>
+			</ul>
+			
+		</div>
 	)
 }

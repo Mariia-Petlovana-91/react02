@@ -1,0 +1,12 @@
+.reset__btn{
+    width: 100%;
+    background-color: #d8cd31;
+	color: black;
+	font-size: 20px;
+	border-radius: 5px;
+    padding: 16px 20px 16px 20px;
+}
+
+.reset__btn:hover, .reset__btn:focus{
+	box-shadow: 0 8px 16px rgba(240, 248, 255, 0.274);
+}

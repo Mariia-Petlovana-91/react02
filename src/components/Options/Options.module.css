@@ -1,45 +1,34 @@
 .options__container{
-	margin-bottom: 20px;
-	margin-left: auto;
-	margin-right: auto;
 	max-width: 600px;
+	border-bottom: solid 1px rgba(240, 248, 255, 0.562);
+	padding-bottom: 20px;
 }
 
 .options__list{
-      border-bottom: solid 1px rgba(240, 248, 255, 0.562);
+	display: flex;
+	justify-content: space-between;
+	margin-right: auto;
+	margin-left: auto;
 	margin-bottom: 20px;
 }
 
 .options__item{
-	margin-bottom: 10px;
-	text-align: center;
-	font-size: 24px;
+	margin-right:20px;
 }
 
-.options__psitive{
-	margin-right: 20px;
-	color: rgb(48, 206, 48);
-	text-align: center;
-	font-size: 28px;
-}
-
-.options__negative{
-	color: rgb(233, 32, 32);
-	margin-bottom: 10px;
-	text-align: center;
-	font-size: 28px;
+.options__item:last-child{
+	margin-right: 0px;
 }
 
 .options__btn{
-	width: 100%;
+	min-width: 120px;
 	padding: 16px 20px 16px 20px;
 	background-color: #d8cd31;
 	color: black;
 	font-size: 20px;
 	border-radius: 5px;
-	
 }
 
-.options__btn:hover, .options__btn:focus {
+.options__btn:hover, .options__btn:focus{
 	box-shadow: 0 8px 16px rgba(240, 248, 255, 0.274);
 }
