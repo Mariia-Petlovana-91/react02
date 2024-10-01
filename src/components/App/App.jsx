@@ -6,37 +6,27 @@ import Feedback from '../Feedback/Feedback';
 import Notification from '../Notification/Notification';
 
 const App = () => {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
+  const [state, setState] = useState({
+    good: 0,
+    neutral: 0,
+    bad: 0
+  });
 
   useEffect(() => {
-    const savedFeedback = JSON.parse(localStorage.getItem('feedback')) || {};
-    setGood(savedFeedback.good || 0);
-    setNeutral(savedFeedback.neutral || 0);
-    setBad(savedFeedback.bad || 0);
+    const savedFeedback = JSON.parse(localStorage.getItem('feedback')) || { good: 0, neutral: 0, bad: 0 };
+    setState(savedFeedback);
   }, []);
 
   const updateFeedback = (feedbackType) => {
-    if (feedbackType === 'good') {
-      setGood((prevGood) => {
-        const updatedGood = prevGood + 1;
-        saveFeedback(updatedGood, neutral, bad);
-        return updatedGood;
-      });
-    } else if (feedbackType === 'neutral') {
-      setNeutral((prevNeutral) => {
-        const updatedNeutral = prevNeutral + 1;
-        saveFeedback(good, updatedNeutral, bad);
-        return updatedNeutral;
-      });
-    } else if (feedbackType === 'bad') {
-      setBad((prevBad) => {
-        const updatedBad = prevBad + 1;
-        saveFeedback(good, neutral, updatedBad);
-        return updatedBad;
-      });
-    }
+    setState((prevState) => {
+      const updatedState = {
+        ...prevState,
+        [feedbackType]: prevState[feedbackType] + 1
+      };
+
+      saveFeedback(updatedState.good, updatedState.neutral, updatedState.bad);
+      return updatedState;
+    });
   };
 
   const saveFeedback = (good, neutral, bad) => {
@@ -44,12 +34,11 @@ const App = () => {
   };
 
   const handleReset = () => {
-    setGood(0);
-    setNeutral(0);
-    setBad(0);
+    setState({ good: 0, neutral: 0, bad: 0 });
     localStorage.removeItem('feedback');
   };
 
+  const { good, neutral, bad } = state;
   const totalFeedback = good + neutral + bad;
 
   return (
