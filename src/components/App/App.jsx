@@ -33,7 +33,7 @@ const App = () => {
   const { good, neutral, bad } = state;
   const totalFeedback = good + neutral + bad;
 
-  const positiveFeedback = Math.round((good / totalFeedback) * 100);
+  const positiveFeedback = Math.round((good  / totalFeedback) * 100  );
 
   return (
     <Section>
