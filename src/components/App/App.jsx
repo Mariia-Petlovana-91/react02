@@ -6,44 +6,38 @@ import Feedback from '../Feedback/Feedback';
 import Notification from '../Notification/Notification';
 
 const App = () => {
-  const [state, setState] = useState({
-    good: 0,
-    neutral: 0,
-    bad: 0
-  });
-
-  useEffect(() => {
-    const savedFeedback = JSON.parse(localStorage.getItem('feedback')) || { good: 0, neutral: 0, bad: 0 };
-    setState(savedFeedback);
-  }, []);
-
-  const updateFeedback = (feedbackType) => {
-    setState((prevState) => {
-      const updatedState = {
-        ...prevState,
-        [feedbackType]: prevState[feedbackType] + 1
-      };
-
-      saveFeedback(updatedState.good, updatedState.neutral, updatedState.bad);
-      return updatedState;
-    });
+  const getInitialState = () => {
+    const savedFeedback = localStorage.getItem('feedback');
+    return savedFeedback ? JSON.parse(savedFeedback) : { good: 0, neutral: 0, bad: 0 };
   };
 
-  const saveFeedback = (good, neutral, bad) => {
-    localStorage.setItem('feedback', JSON.stringify({ good, neutral, bad }));
+  const [state, setState] = useState(getInitialState);
+
+  useEffect(() => {
+    localStorage.setItem('feedback', JSON.stringify(state));
+  }, [state]);
+
+  const updateFeedback = (feedbackType) => {
+    setState((prevState) => ({
+      ...prevState,
+      [feedbackType]: prevState[feedbackType] + 1
+    }));
   };
 
   const handleReset = () => {
-    setState({ good: 0, neutral: 0, bad: 0 });
-    localStorage.removeItem('feedback');
+    const resetState = { good: 0, neutral: 0, bad: 0 };
+    setState(resetState);
+    localStorage.setItem('feedback', JSON.stringify(resetState));
   };
 
   const { good, neutral, bad } = state;
   const totalFeedback = good + neutral + bad;
 
+  const positiveFeedback = Math.round((good / totalFeedback) * 100);
+
   return (
     <Section>
-      <Description total={totalFeedback} good={good} />
+      <Description positiveTotal={positiveFeedback} />
 
       <Options
         handleGood={() => updateFeedback('good')}
@@ -54,7 +48,7 @@ const App = () => {
       />
 
       {totalFeedback !== 0 ? (
-        <Feedback good={good} neutral={neutral} bad={bad} totalFeedback={totalFeedback} />
+        <Feedback good={good} neutral={neutral} bad={bad} positiveFeedback={positiveFeedback} />
       ) : (
         <Notification />
       )}
